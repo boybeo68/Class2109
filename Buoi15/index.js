@@ -33,3 +33,5 @@ localStorage.setItem("newTask", JSON.stringify(listTask));
 let getlistTask = localStorage.getItem("newTask");
 // let getData = localStorage.getItem("meyKey2");
 console.log(JSON.parse(getlistTask));
+
+// Dùng 3 cái: selector, event, localstorage 
