@@ -1,0 +1,9 @@
+Cách học 1 ngôn ngữ lập trình ở mức cơ bản
+- Học 1 khoá học online 
+- Tự tìm hiểu qua các câu hỏi
++ cách khai báo biến, các kiểu dữ liệu của ngôn ngữ đấy 
++ Sử dụng các toán tử. 
++ Cú pháp:  if/else, for, function. 
++ Xử lý với data (kiểu dữ liệu) / cách import thư viện vào ngôn ngữ 
+=> Làm được 1 bài CRUD. 
+Mở rộng: Những cái riêng biệt của ngôn ngữ lập trình đó. 
