@@ -75,19 +75,19 @@
                     showComponent: !this.state.showComponent
                 })
             }
-            componentDidMount() {
-                // vào component mình sẽ làm 1 việc gì đấy 
-                interval = setInterval(() => {
-                    this.tick()
-                }, 1000);
-            }
+            // componentDidMount() {
+            //     // vào component mình sẽ làm 1 việc gì đấy 
+            //     interval = setInterval(() => {
+            //         this.tick()
+            //     }, 1000);
+            // }
 
-            componentWillUnmount() {
-                clearInterval(interval)
-                // thoát khỏi (mất đi)  component mình sẽ làm 1 việc gì đấy 
-                // subcrible, lắng nghe gì đó. 
-                console.log('componentWillUnmount componentWillUnmount');
-            }
+            // componentWillUnmount() {
+            //     clearInterval(interval)
+            //     // thoát khỏi (mất đi)  component mình sẽ làm 1 việc gì đấy 
+            //     // subcrible, lắng nghe gì đó. 
+            //     console.log('componentWillUnmount componentWillUnmount');
+            // }
 
 
             tick = () => {
@@ -108,6 +108,7 @@
                 return (
                     <div> Data bài số 2: {this.state.seconds}
                         <button onClick={this.hideChild}> click on/off component</button>
+                        {this.state.showComponent ? (<ChildComponent name={'child trong bài tập số 2'} />) : (null)}
                     </div>
                 );
             }

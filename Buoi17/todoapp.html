@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Todo app</title>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        class Main extends React.Component {
+            constructor(props) {
+                super(props)
+
+                this.state = {
+                    text: '',
+                    listTodo: []
+                };
+            };
+            onchangeText = (text) => {
+                this.setState({
+                    text: text.target.value
+                })
+            }
+
+            addTask = () => {
+                let itemAdd = {
+                    id: Date.now(),
+                    task: this.state.text
+                }
+                this.setState({
+                    listTodo: this.state.listTodo.concat([itemAdd]),
+                    text: ''
+                })
+            }
+            render() {
+                // chỉ render html
+                return (
+                    <div className="main">
+                        <h1>To do app</h1>
+                        <input onChange={this.onchangeText} type="text" name="task" id="task" value={this.state.text} />
+                        <button onClick={this.addTask}>add Task</button>
+                        <ul>
+                            {this.state.listTodo.map((item, index) => {
+                                return (
+                                    <li key={index}>{item.task}</li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<Main />, document.getElementById('root'))
+    </script>
+</body>
+
+</html>
