@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>Chưa bài tập về nhà </h1>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        let interval = null
+
+
+        class Bai1 extends React.Component {
+            render() {
+                console.log(this.props);
+                return (
+                    <div>
+                        Hello {this.props.name}
+                    </div>
+                );
+            }
+        }
+
+
+        class ChildComponent extends React.Component {
+
+            componentDidMount() {
+                // vào component mình sẽ làm 1 việc gì đấy 
+                interval = setInterval(() => {
+                    this.tick()
+                }, 1000);
+            }
+            componentDidUpdate(prevState, prevProps) {
+
+            }
+            componentWillUnmount() {
+                clearInterval(interval)
+                // thoát khỏi (mất đi)  component mình sẽ làm 1 việc gì đấy 
+                console.log('componentWillUnmount componentWillUnmount');
+            }
+            tick = () => {
+                console.log('hello');
+            }
+            render() {
+                return (
+                    <div> {this.props.name} </div>
+                );
+            }
+        }
+
+        class Bai2 extends React.Component {
+
+            constructor(props) {
+                super(props)
+
+                this.state = {
+                    seconds: 0,
+                    showComponent: true
+                };
+            };
+
+            hideChild = () => {
+                this.setState({
+                    showComponent: !this.state.showComponent
+                })
+            }
+            componentDidMount() {
+                // vào component mình sẽ làm 1 việc gì đấy 
+                interval = setInterval(() => {
+                    this.tick()
+                }, 1000);
+            }
+
+            componentWillUnmount() {
+                clearInterval(interval)
+                // thoát khỏi (mất đi)  component mình sẽ làm 1 việc gì đấy 
+                // subcrible, lắng nghe gì đó. 
+                console.log('componentWillUnmount componentWillUnmount');
+            }
+
+
+            tick = () => {
+                this.setState({
+                    seconds: this.state.seconds + 1
+                })
+                console.log('second: ', this.state.seconds);
+            }
+
+            // if (this.state.showComponent === true) {
+            //     return  (<ChildComponent name={'child trong bài tập số 2'} />)
+            // }else {
+            //     return null
+            // }
+
+            render() {
+                return (
+                    <div> Data bài số 2: {this.state.seconds}
+                        <button onClick={this.hideChild}> click on/off component</button>
+                    </div>
+                );
+            }
+        }
+
+        class Main extends React.Component {
+            render() {
+                return (
+                    <div className="main">
+                        <div> Bài 1 </div>
+                        <Bai1 name={'T3h'} />
+                        <div> Bài 2 </div>
+                        <Bai2 />
+                    </div>
+
+                );
+            }
+        }
+
+
+
+
+        ReactDOM.render(<Main />, document.getElementById('root'))
+    </script>
+</body>
+
+</html>
