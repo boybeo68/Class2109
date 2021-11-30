@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Latest compiled JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <title>RandomGame</title>
+    <style>
+        .body {
+            width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        class Main extends React.Component {
+            constructor(props) {
+                super(props)
+
+                this.state = {
+                    randomNumber: null,
+                    countGuesting: 0,
+                    text: ''
+                };
+            };
+
+            componentDidMount = () => {
+                this.setState({
+                    randomNumber: this.getRandom()
+                })
+            }
+
+            getRandom = () => {
+                let random = Math.floor((Math.random() * 100) + 1);
+                console.log(random);
+                return random
+            }
+
+            newGame = () => {
+                this.setState({
+                    randomNumber: this.getRandom()
+                })
+            }
+            guesing = () => {
+                const { countGuesting, text, randomNumber } = this.state
+                let convertText = Number(text)// ParsetInt
+                if (convertText > randomNumber) {
+                    alert('big')
+                } else if (convertText < randomNumber) {
+                    alert('small')
+                } else {
+                    alert('true')
+                }
+                this.setState({
+                    countGuesting: countGuesting + 1
+                })
+            }
+            GuessInput = (text) => {
+                this.setState({
+                    text: text.target.value
+                })
+            }
+            render() {
+                const { countGuesting, text } = this.state
+                return (
+                    <div>
+                        {/* Header */}
+                        <div className="jumbotron text-center">
+                            <h1>Getting random number</h1>
+                            <p>Tôi đã chọn một số random trong khoảng 1 đến 100, bạn có thể đoán được?</p>
+                        </div>
+                        {/* Body */}
+                        <div className="body">
+                            <button onClick={this.newGame}>New game</button>
+                            <h4>Số lần bạn đã đoán là: {countGuesting}</h4>
+                            <h4>Số bạn đoán là</h4>
+                            <input type="number" name="guess" id="guess" onChange={this.GuessInput} />
+                            <button className="btn-success" onClick={this.guesing}> Đoán </button>
+                            <p>You guess the number is small</p>
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<Main />, document.getElementById('root'))
+    </script>
+</body>
+
+</html>
