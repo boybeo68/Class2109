@@ -10,10 +10,12 @@ class Main extends React.Component {
     // props: truyền từ cha xuống con 
     // truyền dữ liệu từ con lên cha . sử dụng callback
     getParamChild = (countGuesting, guess) => {
+        console.log(guess, countGuesting);
         this.setState({
             countGuesting: countGuesting,
             guess: guess
         })
+
     }
     dataToParent = (text) => {
         alert(text)
@@ -37,7 +39,7 @@ class Header extends React.Component {
     }
     render() {
         return (
-            <div div className="jumbotron text-center" style={{ backgroundColor: this.renderBackground() }} >
+            <div className="jumbotron text-center" style={{ backgroundColor: this.renderBackground() }} >
                 <h1>Getting random number</h1>
                 <p>Tôi đã chọn một số random trong khoảng 1 đến 100, bạn có thể đoán được?</p>
                 {(7 - this.props.countGuesting) > 0 ? (<p>Số điểm của bạn còn {7 - this.props.countGuesting}</p>) : (<p> You lose</p>)}
@@ -83,17 +85,18 @@ class Body extends React.Component {
         const { countGuesting, text, randomNumber, guess } = this.state
         let convertText = Number(text)// ParsetInt
         if (convertText > randomNumber) {
-            this.setState({ guess: 'big' })
+            this.setState({ guess: 'big', countGuesting: countGuesting + 1 }, () => {
+                this.props.getParamChild(this.state.countGuesting, this.state.guess)
+            })
         } else if (convertText < randomNumber) {
-            this.setState({ guess: 'small' })
+            this.setState({ guess: 'small', countGuesting: countGuesting + 1 }, () => {
+                this.props.getParamChild(this.state.countGuesting, this.state.guess)
+            })
         } else {
-            this.setState({ guess: 'correct' })
+            this.setState({ guess: 'correct', countGuesting: countGuesting + 1 }, () => {
+                this.props.getParamChild(this.state.countGuesting, this.state.guess)
+            })
         }
-        this.setState({
-            countGuesting: countGuesting + 1
-        })
-        // this.props.getParamChild(countGuesting, guess)
-        this.props.dataToParent('hay lam ban oi ')
     }
     GuessInput = (text) => {
         this.setState({
@@ -107,7 +110,6 @@ class Body extends React.Component {
         } return (<p>Vui lòng nhập số lần đầu tiên</p>)
     }
     render() {
-        console.log(this.props);
         const { countGuesting, text, guess } = this.state
         return (
             <div className="body">
@@ -122,6 +124,5 @@ class Body extends React.Component {
         );
     }
 }
-
 
 ReactDOM.render(<Main />, document.getElementById('root'))
