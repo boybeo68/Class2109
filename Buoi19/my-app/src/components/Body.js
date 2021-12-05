@@ -30,6 +30,16 @@ export default function Body() {
     };
     settodoList([...todoList, newTask]);
   };
+  const checkDone = (id) => {
+    const newTodoList = todoList.map((item) => {
+      if (item.id === id) {
+        return { ...item, isDone: !item.isDone };
+      }
+      return item;
+    });
+    console.log(newTodoList);
+    settodoList(newTodoList);
+  };
   return (
     <div className="body">
       <p>Count</p>
@@ -37,7 +47,17 @@ export default function Body() {
       <button onClick={() => inCreeCount(2)}>inCreeCount</button>
       <ul>
         {todoList.map((item, index) => {
-          return <li key={item.id + ""}>{item.task}</li>;
+          return (
+            <li
+              className={item.isDone ? "textDecoration" : ""}
+              onClick={() => {
+                checkDone(item.id);
+              }}
+              key={item.id + ""}
+            >
+              {item.task}
+            </li>
+          );
         })}
       </ul>
       <button onClick={addTask}>AddTask</button>
