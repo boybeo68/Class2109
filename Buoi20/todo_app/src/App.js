@@ -5,6 +5,9 @@ import Header from './components/Header';
 import TodoList from './components/TodoList';
 import Footer from './components/Footer';
 import { api, createTodo, deleteTodoApi, getListTodo } from './config/api';
+import axios from 'axios';
+import { API_KEY } from './config/key';
+import Weather from './components/Weather';
 
 function App() {
   const [todoList, settodoList] = useState([]);
@@ -23,7 +26,6 @@ function App() {
   useEffect(() => {
     getListTodos();
   }, []);// array rỗng tương đương componentDidMount
-
   const getListTodos = async () => {
     try {
       let result = await api.get(getListTodo)
@@ -42,13 +44,19 @@ function App() {
       console.log(error);
     }
   }
+
   return (
     <div className="wrapper">
       <Header addTodo={addTodo} />
       <TodoList todoList={todoList} deleteTodo={deleteTodo} />
       <Footer todoList={todoList} />
+      <Weather />
     </div>
   );
 }
 
 export default App;
+
+// bài tập về nhà làm app thời tiết với api 
+// https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=f940561a277d552c3b894777566e82f2&units=metric => thay api key 
+// https://redux.js.org/
