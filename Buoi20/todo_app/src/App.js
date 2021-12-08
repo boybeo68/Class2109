@@ -1,19 +1,23 @@
 
 import './App.css';
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Header from './components/Header';
 import TodoList from './components/TodoList';
 import Footer from './components/Footer';
+import { api, createTodo, deleteTodoApi, getListTodo } from './config/api';
 
 function App() {
   const [todoList, settodoList] = useState([]);
   const addTodo = async (inputValue) => {
-    await axios.post('https://61b02a623e2aba0017c49636.mockapi.io/Todolist', {
-      task: inputValue,
-      isDone: false
-    })
-    getListTodos();
+    try {
+      await api.post(createTodo, {
+        task: inputValue,
+        isDone: false
+      })
+      getListTodos();
+    } catch (error) {
+      console.log(error);
+    }
   }
   // ueh
   useEffect(() => {
@@ -21,14 +25,23 @@ function App() {
   }, []);// array rỗng tương đương componentDidMount
 
   const getListTodos = async () => {
-    let result = await axios.get('https://61b02a623e2aba0017c49636.mockapi.io/Todolist')
-    settodoList(result.data)
-  }
-  const deleteTodo = async (id) => {
-    await axios.delete(`https://61b02a623e2aba0017c49636.mockapi.io/Todolist/${id}`)
-    getListTodos()
+    try {
+      let result = await api.get(getListTodo)
+      console.log(result.status);
+      settodoList(result.data)
+    } catch (error) {
+      alert('Có lỗi xảy ra', error)
+    }
   }
 
+  const deleteTodo = async (id) => {
+    try {
+      await api.delete(`${deleteTodoApi}/${id}`)
+      getListTodos()
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className="wrapper">
       <Header addTodo={addTodo} />

@@ -5,7 +5,7 @@ export default function TodoList(props) {
         <ul className="todoList">
             {props.todoList && props.todoList.map(item => {
                 return (
-                    <li>
+                    <li key={item.id}>
                         {item.task}
                         <span onClick={() => {
                             props.deleteTodo(item.id)
