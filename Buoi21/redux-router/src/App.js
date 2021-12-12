@@ -4,6 +4,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Post from "./pages/Post";
 import About from "./pages/About";
+import Invoices from "./pages/Invoices";
+import Invoice from "./pages/Invoice";
 function App() {
   return (
     <div className="App">
@@ -40,7 +42,13 @@ function App() {
               <li class="nav-item">
                 <Link class="nav-link active" to="/about">
                   {" "}
-                  Home
+                  About
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link class="nav-link active" to="/invoices">
+                  {" "}
+                  Invoices
                 </Link>
               </li>
               <li class="nav-item">
@@ -57,6 +65,20 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/post" element={<Post />} />
         <Route path="/about" element={<About />} />
+        <Route path="/invoices" element={<Invoices />}>
+          {/* /invoices/123123  invoiceID = 123123*/}
+          <Route path=":invoiceId" element={<Invoice />} />
+        </Route>
+
+        {/* error page (no match) */}
+        <Route
+          path="*"
+          element={
+            <main>
+              <p>not Found</p>
+            </main>
+          }
+        />
       </Routes>
     </div>
   );
