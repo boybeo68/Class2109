@@ -38,3 +38,14 @@ export function getInvouices() {
 export function getInvoice(number) {
   return invoices.find((invoice) => invoice.number === number);
 }
+
+// 22 , 23, 24, 25,26, 27, 28
+
+// 21 + 22 : Redux 
+// => hoàn thành kiến thức cơ bản nhất reactjs
+// 23, 24, 25: Làm 1 project (trên lớp a sẽ hướng dẫn mọi người làm , về nhà sẽ làm thêm )
+// 26, 27: Tự nghĩ 1 project để phát triển và làm : đến lớp trao đổi, QA. 
+
+//  cách 1 tuần tự làm tiếp 
+
+// 28: sẽ buổi tổng kết. bảo vệ project: mỗi người tầm 10 -15p 

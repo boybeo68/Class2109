@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { getInvoice, getInvouices } from "../data";
+import { getInvoice, } from "../data";
 
 export default function Invoice() {
   const params = useParams();
