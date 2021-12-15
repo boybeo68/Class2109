@@ -21,16 +21,20 @@ export const postSlice = createSlice({
   initialState: initState,
   reducers: {
     addNewPost: (state, actions) => {
-      //   return state.post.concat(...state.post, {
-      //     id: 10,
-      //     title: actions.payload.title,
-      //     content: actions.payload.content,
-      //   });
-      state.post.push({
-        id: shortid.generate(),
-        title: actions.payload.title,
-        content: actions.payload.content,
-      });
+      const { title, content } = actions.payload;
+      // nếu thay đổi state gốc thì ko return
+      // state.post.push({
+      //   id: shortid.generate(),
+      //   title: actions.payload.title,
+      //   content: actions.payload.content,
+      // });
+      //  nếu giữ nguyên state cũ thì phải return
+      let newState = JSON.parse(JSON.stringify(state));
+      newState.post = [
+        { id: shortid.generate(), title, content },
+        ...newState.post,
+      ];
+      return newState;
     },
   },
 });
