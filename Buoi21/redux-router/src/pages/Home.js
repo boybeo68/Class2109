@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Home() {
+  const postList = useSelector((state) => state.posts);
+  console.log(postList);
   const [data, setdata] = useState([
     { id: "1", name: "tung" },
     { id: "2", name: "tung" },
@@ -11,8 +14,8 @@ export default function Home() {
     <div className="home">
       <p>home page test {data[0].name} </p>
       <ul>
-        {data.map((item) => {
-          return <li key={item.id}>{item.name}</li>;
+        {postList.post.map((item) => {
+          return <li key={item.id}>{item.content}</li>;
         })}
       </ul>
     </div>
