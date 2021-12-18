@@ -4,16 +4,11 @@ import { addNewPost } from "../features/postSlice";
 
 export default function Home() {
   const postList = useSelector((state) => state.posts);
+  const usersList = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   console.log(postList);
-  const [data, setdata] = useState([
-    { id: "1", name: "tung" },
-    { id: "2", name: "tung" },
-    { id: "3", name: "tung" },
-    { id: "4", name: "tung" },
-  ]);
   const addPost = () => {
     // console.log(title, content);
     dispatch(addNewPost({ title, content }));
@@ -60,7 +55,15 @@ export default function Home() {
       </button>
       <ul>
         {postList.post.map((item) => {
-          return <li key={item.id}>{item.content}</li>;
+          const user = usersList.find((userItem) => {
+            return userItem.id === item.users;
+          });
+          return (
+            <li key={item.id}>
+              {" "}
+              <span>{user.name}</span> {item.content}
+            </li>
+          );
         })}
       </ul>
     </div>
