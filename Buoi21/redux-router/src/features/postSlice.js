@@ -1,29 +1,32 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 import shortid from "shortid";
 const initState = {
-  post: [
-    {
-      id: 1,
-      title: "bài post số 1",
-      users: "1",
-      content:
-        "Quis pariatur eu culpa ipsum occaecat commodo aliquip magna dolor laborum eu. Ad non quis magna dolore voluptate non. Velit sit aliqua et incididunt sit. Ipsum incididunt culpa esse amet quis ut incididunt duis culpa tempor incididunt sint. Commodo laborum exercitation duis reprehenderit do aute tempor anim sint dolor exercitation quis.",
-    },
-    {
-      id: 2,
-      title: "bài post số 2",
-      users: "2",
-      content:
-        "Quis pariatur eu culpa ipsum occaecat commodo aliquip magna dolor laborum eu. Ad non quis magna dolore voluptate non. Velit sit aliqua et incididunt sit. Ipsum incididunt culpa esse amet quis ut incididunt duis culpa tempor incididunt sint. Commodo laborum exercitation duis reprehenderit do aute tempor anim sint dolor exercitation quis.",
-    },
-  ],
+  post: [],
+  status: "idle",
 };
+export const fetchPost = createAsyncThunk("post/fetchListPost", async () => {
+  try {
+    const response = await axios.get(
+      "https://61acc303d228a9001703abca.mockapi.io/postList"
+    );
+    // console.log(response.data);
+    return response.data;
+  } catch (error) {}
+});
+
 export const postSlice = createSlice({
   name: "post",
   initialState: initState,
   reducers: {
     addNewPost: (state, actions) => {
       const { title, content } = actions.payload;
+      const findPost = state.post.find((item) => {
+        return item.id === actions.payload.id;
+      });
+      if (findPost) {
+        findPost.react["like"] += 1;
+      }
       // nếu thay đổi state gốc thì ko return
       // state.post.push({
       //   id: shortid.generate(),
@@ -38,6 +41,24 @@ export const postSlice = createSlice({
       ];
       return newState;
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchPost.pending, (state, actions) => {
+        state.status = "loading";
+        console.log("pending");
+      })
+      .addCase(fetchPost.fulfilled, (state, action) => {
+        state.status = "success";
+        console.log("action", action);
+        state.post = action.payload;
+        console.log("success");
+      })
+      .addCase(fetchPost.rejected, (state, action) => {
+        state.status = "fail";
+        state.post = [];
+        console.log("reject");
+      });
   },
 });
 // concept gôc của redux là không được phép thay đổi state gốc, chỉ được clone ra state mới rồi gán vào.

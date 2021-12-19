@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addNewPost } from "../features/postSlice";
+import { addNewPost, fetchPost } from "../features/postSlice";
 
 export default function Home() {
   const postList = useSelector((state) => state.posts);
@@ -21,6 +21,9 @@ export default function Home() {
   const getValueContent = (e) => {
     setContent(e.target.value);
   };
+  useEffect(() => {
+    dispatch(fetchPost());
+  }, []);
   return (
     <div className="home">
       <form>
@@ -56,12 +59,12 @@ export default function Home() {
       <ul>
         {postList.post.map((item) => {
           const user = usersList.find((userItem) => {
-            return userItem.id === item.users;
+            return userItem?.id === item?.users;
           });
           return (
-            <li key={item.id}>
+            <li key={item?.id}>
               {" "}
-              <span>{user.name}</span> {item.content}
+              <span>{user?.name}</span> {item.content}
             </li>
           );
         })}
