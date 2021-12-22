@@ -1,7 +1,7 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 // [{id: dsfdsf, msg: 'Lỗi đăng nhập', alertType: 'danger'}]
-const init = [{ id: "1", msg: "Lỗi đăng nhập", alertType: "danger" }];
+const init = [];
 
 export const alertSlice = createSlice({
   name: "alert",

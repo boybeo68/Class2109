@@ -5,9 +5,9 @@ export default function Navbar() {
   return (
     <nav className="navbar bg-dark">
       <h1>
-        <a href="index.html">
+        <Link to="/">
           <i className="fas fa-code"></i> DevConnector
-        </a>
+        </Link>
       </h1>
       <ul>
         <li>
