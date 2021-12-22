@@ -1,6 +1,13 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 export default function Dashboard() {
+  const auth = useSelector((state) => state.auth);
+  if (!auth.token) {
+    return <Navigate to={"/login"} />;
+  }
+
   return (
     <section className="container">
       <h1 className="large text-primary">Dashboard</h1>

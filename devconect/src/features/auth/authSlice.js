@@ -3,7 +3,7 @@ import api from "../../utils/api";
 
 // [{id: dsfdsf, msg: 'Lỗi đăng nhập', alertType: 'danger'}]
 const init = {
-  token: null,
+  token: localStorage.getItem("token"),
   loading: false,
   user: null,
 };
@@ -13,13 +13,22 @@ export const registerUser = createAsyncThunk(
   async (payload) => {
     try {
       const response = await api.post("/api/users", payload);
-      localStorage.setItem("token", response.data);
+      localStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
       console.log(error);
     }
   }
 );
+export const loginUser = createAsyncThunk("auth/login", async (payload) => {
+  try {
+    const response = await api.post("/api/auth", payload);
+    localStorage.setItem("token", response.data.token);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export const authSlice = createSlice({
   name: "auth",
@@ -39,6 +48,17 @@ export const authSlice = createSlice({
         state.token = action.payload.token;
       })
       .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.token = null;
+      })
+      .addCase(loginUser.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.token = action.payload.token;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.token = null;
       });
