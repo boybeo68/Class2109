@@ -13,6 +13,8 @@ import Login from "./features/auth/Login";
 import Landing from "./components/Landing";
 import Alert from "./features/alert/Alert";
 import Dashboard from "./components/Dashboard";
+import PrivateRouter from "./components/PrivateRouter";
+import Post from "./features/post/Post";
 
 const App = () => {
   return (
@@ -23,7 +25,11 @@ const App = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={<PrivateRouter component={Dashboard} />}
+        />
+        <Route path="/post" element={<PrivateRouter component={Post} />} />
       </Routes>
     </Router>
   );
