@@ -15,6 +15,7 @@ import Alert from "./features/alert/Alert";
 import Dashboard from "./components/Dashboard";
 import PrivateRouter from "./components/PrivateRouter";
 import Post from "./features/post/Post";
+import CreateProfile from "./features/profile/CreateProfile";
 
 const App = () => {
   return (
@@ -30,6 +31,10 @@ const App = () => {
           element={<PrivateRouter component={Dashboard} />}
         />
         <Route path="/post" element={<PrivateRouter component={Post} />} />
+        <Route
+          path="/create-profile"
+          element={<PrivateRouter component={CreateProfile} />}
+        />
       </Routes>
     </Router>
   );
