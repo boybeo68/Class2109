@@ -1,11 +1,16 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import { setAlert } from "../features/alert/alertSlice";
 
 export default function Landing() {
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+  if (auth.token) {
+    return <Navigate to={"/dashboard"} />;
+  }
   return (
     <section className="landing">
       <div className="dark-overlay">

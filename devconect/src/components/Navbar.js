@@ -13,7 +13,7 @@ export default function Navbar() {
         <a href="profiles.html">Developers</a>
       </li>
       <li>
-        <Link to="/register">Post</Link>
+        <Link to="/post">Post</Link>
       </li>
       <li>
         <a
@@ -35,6 +35,9 @@ export default function Navbar() {
       </li>
       <li>
         <Link to="/register">Register</Link>
+      </li>
+      <li>
+        <Link to="/post">Post</Link>
       </li>
       <li>
         <Link to="/login">Login</Link>

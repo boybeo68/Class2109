@@ -13,6 +13,9 @@ import Login from "./features/auth/Login";
 import Landing from "./components/Landing";
 import Alert from "./features/alert/Alert";
 import Dashboard from "./components/Dashboard";
+import PrivateRoute from "./components/PrivateRoute";
+import Post from "./features/post/Post";
+import CreateProfile from "./features/profile/CreateProfile";
 
 const App = () => {
   return (
@@ -23,7 +26,15 @@ const App = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={<PrivateRoute component={Dashboard} />}
+        />
+        <Route path="/post" element={<PrivateRoute component={Post} />} />
+        <Route
+          path="/create-profile"
+          element={<PrivateRoute component={CreateProfile} />}
+        />
       </Routes>
     </Router>
   );
